@@ -1,8 +1,37 @@
-$mainColor: rgb(18, 184, 134);
+$mainColor: teal;
+$mainTextColor: lightgrey;
+$secondaryTextColor:darkgrey;
+
+@mixin cardStyle {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    margin: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
 
 * {
     margin:0;
     padding:0;
     box-sizing: border-box;
+    color: $mainTextColor;
     background-color: $mainColor;
+}
+
+.flexcontainer{
+    width: 100%;
+    display:flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.testcard{
+    @include cardStyle;
+    min-width: 150px;
+    max-width: 15%;
+    max-height: 350px;
+    overflow: hidden;
+    display: inline-block;
 }

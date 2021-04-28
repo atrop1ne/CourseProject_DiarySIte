@@ -3,7 +3,7 @@ $mainTextColor: lightgrey;
 $secondaryTextColor:darkgrey;
 
 @mixin cardStyle {
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     margin: 10px;
     padding: 5px;
@@ -18,20 +18,72 @@ $secondaryTextColor:darkgrey;
     background-color: $mainColor;
 }
 
-.flexcontainer{
+header{
     width: 100%;
-    display:flex;
-    position: relative;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    height: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    position: fixed;
+    z-index: 999;
 }
 
-.testcard{
+.headerContent{
+    height: 100%;
+    margin-left: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoryMenu{
+    z-index: 9999;
+    position: fixed;
+    height: 100%;
+    width: 190px;
+    margin-left: 10px;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0.5) 100%);
+}
+
+.container{
+    padding: 60px 20px;
+    margin-left: 200px;
+    columns: 5;
+    column-gap: 20px;
+}
+
+.container .card{
     @include cardStyle;
-    min-width: 150px;
-    max-width: 15%;
-    max-height: 350px;
+    break-inside: avoid;
+    padding: 10px;
+    margin: 0 0 20px;
     overflow: hidden;
+    max-width: 380px;
     display: inline-block;
+    transform: translateZ(0);
+}
+
+@media (max-width: 1050px) {
+    .headerContent{
+        margin: 0;
+    }
+    .categoryMenu{
+        margin: 0;
+        margin-left: -190px;
+    }
+    .container{
+        margin: 0;
+        columns: 4;
+    }
+}
+
+@media (max-width: 768px) {
+    .container{
+        margin: 0;
+        columns: 3;
+    }
+}
+
+@media (max-width: 480px) {
+    .container{
+        columns: 2;
+    }
 }

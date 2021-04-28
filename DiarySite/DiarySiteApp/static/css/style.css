@@ -6,24 +6,63 @@
   background-color: teal;
 }
 
-.flexcontainer {
+header {
   width: 100%;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  height: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  position: fixed;
+  z-index: 999;
 }
 
-.testcard {
+.headerContent {
+  height: 100%;
+  margin-left: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryMenu {
+  z-index: 9999;
+  position: fixed;
+  height: 100%;
+  width: 190px;
+  margin-left: 10px;
+  background: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.container {
+  margin-left: 210px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 20%));
+  top: 50px;
+}
+
+.card {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   margin: 10px;
   padding: 5px;
   font-size: 16px;
-  min-width: 150px;
-  max-width: 15%;
-  max-height: 350px;
+  min-width: 130px;
+  max-height: 150px;
   overflow: hidden;
   display: inline-block;
+}
+
+@media (max-width: 480px) {
+  .headerContent {
+    margin: 0;
+    text-align: center;
+  }
+
+  .categoryMenu {
+    margin: 0;
+    margin-left: -190px;
+  }
+
+  .container {
+    margin: 0;
+    grid-template-columns: repeat(2, minmax(130px, 50%));
+  }
 }

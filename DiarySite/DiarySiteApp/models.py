@@ -41,6 +41,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
+        abstract = False
     
     def __str__(self):
         return self.name
@@ -54,16 +55,17 @@ class Event(models.Model):
     to_remind = models.BooleanField('напоминание')
     remind_date = models.DateTimeField('дата напоминания', null=True, blank=True)
     on_delete = models.BooleanField('удалено', default=False)
-    delete_date = models.DateField('дата удаления', null=True)
-    tags = models.ManyToManyField(Tag)
+    delete_date = models.DateField('дата удаления', null=True, blank=True, editable=False)
+    tag = models.ManyToManyField(Tag)
 
     class Meta:
         verbose_name = 'Событие'
         verbose_name_plural = 'События'
-
-    def __init__(self):
-        if self.planned_date == None:
-            self.on_repeat = None
+        abstract = False
 
     def __str__(self):
-        return f"Событие {self.name} категории {self.category}"
+        return f"Событие '{self.name}' категории '{self.category}'"
+
+    @property
+    def tags(self):
+        return Tag.objects.filter(event = self)

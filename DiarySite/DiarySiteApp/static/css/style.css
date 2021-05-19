@@ -1,20 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: lightgrey;
-  background-color: teal;
+  font-family: Montserrat;
 }
 
 header {
   width: 100%;
-  height: 40px;
+  height: 60px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   position: fixed;
+  background-color: teal;
   z-index: 999;
 }
 
-.headerContent {
+body {
+  background-color: teal;
+}
+
+.header_content {
   height: 100%;
   margin-left: 210px;
   display: flex;
@@ -22,47 +28,140 @@ header {
   justify-content: center;
 }
 
-.categoryMenu {
+.profile {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background: none;
+  align-items: center;
+}
+
+.avatar {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  margin: 10px;
+}
+
+.personal_information {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.menu {
   z-index: 9999;
   position: fixed;
   height: 100%;
   width: 190px;
   margin-left: 10px;
-  background: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0.5) 100%);
+  background: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-.container {
-  margin-left: 210px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 20%));
-  top: 50px;
+.categories_container {
+  display: inline-block;
+  width: 100%;
+  height: 60px;
 }
 
-.card {
-  border-radius: 5px;
+.menuButton {
+  border: black solid 1px;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: black;
+  cursor: pointer;
+}
+
+.menuButton:active {
+  background-color: gray;
+  border: gray;
+}
+
+.notes_container {
+  padding: 60px 20px;
+  margin-left: 200px;
+  columns: 5;
+  column-gap: 15px;
+}
+
+.notes_container .card {
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   margin: 10px;
   padding: 5px;
   font-size: 16px;
-  min-width: 130px;
-  max-height: 150px;
+  width: 100%;
+  break-inside: avoid;
+  padding: 10px;
+  margin: 0 0 15px;
   overflow: hidden;
+  max-width: 380px;
   display: inline-block;
+  transform: translateZ(0);
 }
 
-@media (max-width: 480px) {
-  .headerContent {
+.card .cardName {
+  font-weight: bold;
+  display: block;
+  margin: 5px 0;
+}
+
+.card .cardDescription {
+  max-height: 290px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+
+.card .cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-right: 5px;
+  color: black;
+}
+
+.cardTags .tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding: 2px 4px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+}
+
+.card .timeArea {
+  font-weight: 200;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+@media (max-width: 1040px) {
+  .header_content {
     margin: 0;
-    text-align: center;
   }
 
-  .categoryMenu {
+  .menu .animate {
+    left: 0px;
+    transition: left 1s;
+  }
+
+  .notes_container {
+    columns: 4;
+  }
+}
+@media (max-width: 768px) {
+  .menu {
     margin: 0;
     margin-left: -190px;
   }
 
-  .container {
+  .notes_container {
     margin: 0;
-    grid-template-columns: repeat(2, minmax(130px, 50%));
+    columns: 3;
+  }
+}
+@media (max-width: 480px) {
+  .notes_container {
+    columns: 2;
   }
 }

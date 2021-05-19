@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% block title %}{% endblock %}</title>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
-    <header><div class="headerContent">{% block headerContent %}{% endblock %}</div></header>
     {% block content %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,59 @@
+{% extends 'DiarySiteApp/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <header>
+            <div class="header_content">
+                <a href="noteform/add" class="control_button">Добавить заметку</a>
+                <button class="burger_menu_button roundButton"></button>
+            </div>
+        </header>
+        <div class="menu">
+            <div class="profile">
+                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
+                {% else %}
+                        {%if photo %}
+                                <div>photo</div>
+                        {%else%}
+                                <img class="avatar" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+                        {% endif %}
+                {% endif %}
+                <div class="personal_information">
+                        <p>{{user.first_name}}</p> 
+                        <p>{{user.last_name}}</p>
+                </div>
+                <button class="burger_menu_close_button roundButton"></button>
+            </div>
+
+            <div class="categories_container">
+                <a href="main">Все заметки</a>
+                <a href="trashCan">Корзина</a>
+            </div>
+        </div>
+        
+        {% block notes %}{% endblock %}
+
+    {% endif %}
+
+    <script type="text/javascript">
+        const openButton = document.querySelector('.burger_menu_button')
+        const closeButton = document.querySelector('.burger_menu_close_button')
+        const menu = document.querySelector('.menu')
+
+        openButton.addEventListener("click", function(e){
+            openButton.classList.toggle('_active');
+            menu.classList.toggle('_active');
+            document.body.classList.toggle('_lock');
+        })
+
+        closeButton.addEventListener("click", function(e){
+            openButton.classList.toggle('_active');
+            menu.classList.toggle('_active');
+            document.body.classList.toggle('_lock');
+        }) 
+    </script>
+
+{% endblock %}

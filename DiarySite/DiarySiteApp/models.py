@@ -66,4 +66,4 @@ class Note(models.Model):
 
     @property
     def tags(self):
-        return Tag.objects.filter(event = self)
+        return Tag.objects.filter(note = self)

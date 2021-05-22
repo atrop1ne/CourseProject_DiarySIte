@@ -1,0 +1,14 @@
+{% extends 'DiarySiteApp/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" value="{{note.title}}" placeholder="Название заметки">
+            <textarea name="description" id="description" placeholder="Описание">{{note.description}}</textarea>
+            <button type="submit" class="control_button">Сохранить</button>
+        </form>
+    {% endif %}
+{% endblock %}

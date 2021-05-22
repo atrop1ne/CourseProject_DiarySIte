@@ -1,0 +1,33 @@
+{% extends 'DiarySiteApp/notesOutput.html' %}
+
+{% block notes %}
+    <div class="notes_container">
+        {% for note in notes %}
+            <div class="card">
+                {% if note.title %}
+                    <div class="cardName">{{note.title}}</div>
+                {% endif %}
+                {% if note.description%}
+                    <div class="cardDescription">{{note.description}}</div>
+                {% endif %}
+                {% if note.tags%}
+                    <div class="cardTags">
+                        {% for tag in tags %}
+                            {% if tag in note.tags %}
+                                <div class="tag">{{tag}}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if note.planned_date %}
+                    <div class="timeArea">{{note.planned_date |date:"j E H:i"}}</div>
+                {% endif %}
+                <a href="restoreNote/{{note.id}}">Восстановить</a>
+                <a href="delete/{{note.id}}" id="delete">Удалить</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="clearTrashCan" class="roundButton clearTrashCanButton"></a>
+
+{% endblock %}

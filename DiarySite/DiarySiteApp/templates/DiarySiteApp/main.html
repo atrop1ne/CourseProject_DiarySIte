@@ -1,57 +1,33 @@
-{% extends 'DiarySiteApp/base.html' %}
+{% extends 'DiarySiteApp/notesOutput.html' %}
 
-{% block title %}{{title}}{% endblock %}
-
-{% block content %}
-    {% if request.user.is_authenticated %}
-        <header>
-            <div class="header_content">
-
-            </div>
-        </header>
-        <div class="menu">
-            <div class="profile">
-                {% if user.socialaccount_set.all.0.get_avatar_url %}
-                        <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
-                {% else %}
-                        {%if photo %}
-                                <div>photo</div>
-                        {%else%}
-                                <img class="avatar" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+{% block notes %}
+    <div class="notes_container">
+        {% for note in notes %}
+            <div class="card">
+                <a href="noteform/{{note.id}}">
+                    <div class="cardContent">
+                        {% if note.title %}
+                            <div class="cardName">{{note.title}}</div>
                         {% endif %}
-                {% endif %}
-                <div class="personal_information">
-                        <p>{{user.first_name}}</p> 
-                        <p>{{user.last_name}}</p>
-                </div>
+                        {% if note.description%}
+                            <div class="cardDescription">{{note.description}}</div>
+                        {% endif %}
+                        {% if note.tags%}
+                            <div class="cardTags">
+                                {% for tag in tags %}
+                                    {% if tag in note.tags %}
+                                        <div class="tag">{{tag}}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if note.planned_date %}
+                            <div class="timeArea">{{note.planned_date |date:"j E H:i"}}</div>
+                        {% endif %}
+                    </div>
+                </a>
+                <a href="toTrashCan/{{note.id}}" id="delete">В корзину</a>
             </div>
-            <div class="categories_container">
-
-            </div>
-        </div>
-        <div class="notes_container">
-            {% for note in notes %}
-                <div class="card">
-                    {% if note.title %}
-                        <div class="cardName">{{note.title}}</div>
-                    {% endif %}
-                    {% if note.description%}
-                        <div class="cardDescription">{{note.description}}</div>
-                    {% endif %}
-                    {% if note.tags%}
-                        <div class="cardTags">
-                            {% for tag in tags %}
-                                {% if tag in note.tags %}
-                                    <div class="tag">{{tag}}</div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {% if note.planned_date %}
-                        <div class="timeArea">{{note.planned_date |date:"j E H:i"}}</div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}

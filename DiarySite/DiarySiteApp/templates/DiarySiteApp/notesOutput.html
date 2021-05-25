@@ -6,8 +6,8 @@
     {% if request.user.is_authenticated %}
         <header>
             <div class="header_content">
-                <a href="noteform/add" class="control_button">Добавить заметку</a>
-                <button class="burger_menu_button roundButton"></button>
+                <a href="{% url 'noteform' 'add' %}" class="control_button">Добавить заметку</a>
+                <button class="burger_menu_button"></button>
             </div>
         </header>
         <div class="menu">
@@ -16,21 +16,38 @@
                         <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
                 {% else %}
                         {%if photo %}
-                                <div>photo</div>
+                                <div>{{photo}}</div>
                         {%else%}
                                 <img class="avatar" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
                         {% endif %}
                 {% endif %}
-                <div class="personal_information">
-                        <p>{{user.first_name}}</p> 
-                        <p>{{user.last_name}}</p>
-                </div>
-                <button class="burger_menu_close_button roundButton"></button>
+                <a href="accounts/logout" title="Нажмите, чтобы выйти из аккаунта">
+                    <div class="personal_information">
+                            {% if user.first_name %}
+                                <p>{{user.first_name}}</p> 
+                                <p>{{user.last_name}}</p>
+                            {% else %}
+                                <p>{{user}}</p>
+                            {% endif %}
+                    </div>
+                </a>
+                <button class="burger_menu_close_button"></button>
             </div>
 
-            <div class="categories_container">
-                <a href="main">Все заметки</a>
-                <a href="trashCan">Корзина</a>
+            <div class="tags_container">
+                <a href="{% url 'main' %}"><div class="tag_button">Все заметки</div></a>
+                <a href="{% url 'trashCan' %}"><div class="tag_button">Корзина</div></a>
+                {% for tag in tags%}
+                    <div class="custom_tag_button">
+                        <a href="{% url 'notesByTag' tag.id %}"><div>{{tag.title}}</div></a>
+                        <a href="{% url 'deleteTag' tag.id %}" class="delete_tag_button"></a>
+                    </div>
+                {% endfor %}
+                <form method="POST" class="add_tag_form" action="addTag">
+                    {% csrf_token %}
+                    <input type="text" name="tag_title_input" autocomplete="off" class="input tag_title_input" placeholder="Добавить тег" required>
+                    <button type="submit" class="save_tag_button"></button>
+                </form>
             </div>
         </div>
         

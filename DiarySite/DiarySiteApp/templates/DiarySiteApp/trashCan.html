@@ -8,7 +8,7 @@
                     <div class="cardName">{{note.title}}</div>
                 {% endif %}
                 {% if note.description%}
-                    <div class="cardDescription">{{note.description}}</div>
+                    <pre class="cardDescription">{{note.description}}</pre>
                 {% endif %}
                 {% if note.tags%}
                     <div class="cardTags">
@@ -22,12 +22,12 @@
                 {% if note.planned_date %}
                     <div class="timeArea">{{note.planned_date |date:"j E H:i"}}</div>
                 {% endif %}
-                <a href="restoreNote/{{note.id}}">Восстановить</a>
-                <a href="delete/{{note.id}}" id="delete">Удалить</a>
+                <a href="restoreNote/{{note.id}}" class="cardManipulationButton">Восстановить</a>
+                <a href="delete/{{note.id}}" id="delete" class="cardManipulationButton">Удалить</a>
             </div>
         {% endfor %}
     </div>
 
-    <a href="clearTrashCan" class="roundButton clearTrashCanButton"></a>
+    <a href="clearTrashCan" class="clearTrashCanButton"></a>
 
 {% endblock %}

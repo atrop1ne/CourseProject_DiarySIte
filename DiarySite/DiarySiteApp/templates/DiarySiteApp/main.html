@@ -10,7 +10,7 @@
                             <div class="cardName">{{note.title}}</div>
                         {% endif %}
                         {% if note.description%}
-                            <div class="cardDescription">{{note.description}}</div>
+                            <pre class="cardDescription">{{note.description}}</pre>
                         {% endif %}
                         {% if note.tags%}
                             <div class="cardTags">
@@ -26,7 +26,7 @@
                         {% endif %}
                     </div>
                 </a>
-                <a href="toTrashCan/{{note.id}}" id="delete">В корзину</a>
+                <a href="toTrashCan/{{note.id}}" id="delete" class="cardManipulationButton">В корзину</a>
             </div>
         {% endfor %}
     </div>

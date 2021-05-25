@@ -12,6 +12,26 @@ $secondaryTextColor:darkgrey;
     font-size: 16px;
 }
 
+@mixin roundButton {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+@mixin input {
+    width: 100%;
+    border: none;
+    font-size: 24px;
+    border-radius: 10px;
+    color: dimgrey;
+    padding: 5px;
+    display: inline;
+    margin: 10px 0;
+}
+
 * {
     margin:0;
     padding:0;
@@ -19,6 +39,7 @@ $secondaryTextColor:darkgrey;
     color: $mainTextColor;
     font-family: Montserrat;
     text-decoration: none;
+    transition: 0.2s;
 }
 
 header{
@@ -47,15 +68,8 @@ body._lock{
     justify-items: center;
 }
 
-.roundButton{
-    width: 40px;
-    height: 40px;
-    background-color: black;
-    border-radius: 50px;
-    border: none;
-}
-
 .clearTrashCanButton{
+    @include roundButton();
     position: fixed;
     right: 0;
     bottom: 0;
@@ -67,6 +81,7 @@ body._lock{
 }
 
 .burger_menu_button{
+    @include roundButton();
     visibility: hidden;
     grid-column: 3;
 }
@@ -76,6 +91,7 @@ body._lock{
 }
 
 .burger_menu_close_button{
+    @include roundButton();
     background-color: white;
     visibility: hidden;
     grid-column: 3;
@@ -90,7 +106,6 @@ body._lock{
     color:black;
     font-size: 14px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .control_button:hover{
@@ -129,7 +144,6 @@ body._lock{
     width: 190px;
     margin-left: 10px;
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0.6) 100%);
-    transition: 0.2s;
     z-index: 2;
 }
 
@@ -138,10 +152,94 @@ body._lock{
     width: 100%;
 }
 
-.categories_container{
+.tags_container{
     display: inline-block;
     width: 100%;
-    height: 60px;
+    padding: 0 10px;
+}
+
+.add_tag_form{
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    align-items: center;
+    justify-items: center;
+    padding-left: 5px;
+    border: 2px solid $secondaryTextColor;
+    border-radius: 10px;
+}
+
+.save_tag_button{
+    @include roundButton();
+    background-color: transparent;
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+}
+
+.save_tag_button:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.add_tag_form .tag_title_input{
+    display: inline-block;
+    margin: 0;
+    font-size: 16px;
+    background-color: transparent;
+    border:none;
+    color: white;
+}
+
+.add_tag_form .tag_title_input::placeholder{
+    color: $secondaryTextColor;
+}
+
+.tag_button{
+    width: 100%;
+    margin: 10px 0;
+    border: 2px solid $secondaryTextColor;
+    color: $secondaryTextColor;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.tag_button:hover{
+    background-color: $secondaryTextColor;
+    color: black;
+}
+
+.custom_tag_button{
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    font-size: 16px;
+    color: $secondaryTextColor;
+    font-weight: 300;
+    border: 2px solid $secondaryTextColor;
+    border-radius: 10px;
+    padding-left: 5px;
+    margin: 10px 0;
+}
+
+.custom_tag_button:hover{
+    background-color: $secondaryTextColor;
+}
+
+.delete_tag_button{
+    @include roundButton();
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+    display: block;
+    z-index: 5;
+    background-color: transparent;
+}
+
+.delete_tag_button:hover{
+    background-color: #fff;
 }
 
 .notes_container{
@@ -161,7 +259,6 @@ body._lock{
     max-width: 380px;
     display: inline-block;
     transform: translateZ(0);
-    transition: 0.2s;
 }
 
 .card:hover{
@@ -207,6 +304,148 @@ body._lock{
     margin: 5px 0;
   }
 
+.cardManipulationButton{
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.cardManipulationButton:hover{
+    background-color: black;
+    color: $secondaryTextColor;
+}
+
+.form_container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    padding: 60px 20px;
+    text-align: center;
+    width: 35%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.form h1{
+    margin: 20px 0;
+}
+
+.form a{
+    color: white;
+}
+
+.socialaccount_ballot{
+    padding: 20px 0;
+}
+
+.vk_button{
+    width: 100%;
+    padding: 10px 0px;
+    background-color: #2787F5;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.input{
+    @include input();
+}
+
+.login-or{
+    font-size: 16px;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.forgot_password{
+    margin: 30px 0;
+}
+
+.form .control_button{
+    width: 100%;
+    font-size: 24px;
+}
+
+.signup_form_fields{
+    text-align: left;
+    margin: 20px 0;
+}
+
+#id_username{
+    @include input();
+}
+
+#id_email{
+    @include input();
+}
+
+#id_password1{
+    @include input();
+}
+
+#id_password2{
+    @include input();
+}
+
+.note_input{
+    color: white;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $secondaryTextColor;
+}
+
+.note_title_input{
+    font-size: 28px;
+    display: inline;
+}
+
+.note_description_input{
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 5px;
+    margin: 20px 0;
+    font-size: 24px;
+    border: 2px solid $secondaryTextColor;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.note_input::placeholder{
+    color: $mainTextColor;
+}
+
+.note_input:focus{
+    outline: none;
+    border-color: white;
+}
+
+#select_tags{
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-height: 120px;
+}
+
+#select_tags option{
+    color: black;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
 @media (max-width: 1040px) {
     .header_content{
         margin: 0;
@@ -214,6 +453,11 @@ body._lock{
 
     .notes_container{
         columns: 4;
+    }
+
+    .form{
+        width: 60%;
+        font-size: 18px;
     }
 }
 
@@ -239,6 +483,34 @@ body._lock{
 
     .burger_menu_close_button{
         visibility: visible;
+    }
+
+    .form{
+        width: 95%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .tag_button{
+        font-size: 20px;
+        padding: 10px 5px;
+    }
+
+    .add_tag_form .tag_title_input{
+        font-size: 20px;
+        padding: 10px 5px;
+        font-weight: bold;
+    }
+
+    .save_tag_button{
+        width: 40px;
+        height: 40px;
+    }
+
+    .delete_tag_button{
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
     }
 }
 

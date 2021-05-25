@@ -25,13 +25,13 @@ def main(request):
     return render(request, 'DiarySiteApp/main.html', context)
 
 def noteView(request, id):
+    user = User.objects.get(pk = request.user.pk)
     if id == 'add':
         note = Note()
         note.title = ''
         note.description = ''
         note.on_repeat = False
         note.to_remind = False
-        user = User.objects.get(pk = request.user.pk)
         note.account = user.account
     else:
         note = Note.objects.get(id = id)
@@ -39,10 +39,16 @@ def noteView(request, id):
     if request.method == "POST":
         note.title = request.POST.get("title")
         note.description = request.POST.get("description")
+        selectedTags = request.POST.getlist("select_tags")
+        note.save()
+        if selectedTags:
+            for st in selectedTags:
+                note.tag.add(st)
         note.save()
         return redirect('main')
     else:
-        return render(request, "DiarySiteApp/noteform.html", {"note": note, 'title': 'Ваша заметка'})
+        tags = user.account.tags
+        return render(request, "DiarySiteApp/noteform.html", {"note": note, 'tags': tags, 'title': 'Ваша заметка'})
 
 def restoreNote(request, id):
     note = Note.objects.get(id=id)
@@ -89,3 +95,36 @@ def clearTrashCan(request):
     )
     notes.delete()
     return redirect('trashCan')
+
+def addTag(request):
+    if request.method == "POST":
+        user = User.objects.get(pk = request.user.pk)
+        tag = Tag()
+        tag.title = request.POST.get("tag_title_input")
+        tag.account = user.account
+        tag.save()
+        return redirect('main')
+
+def deleteTag(request, id):
+    tag = Tag.objects.get(id = id)
+    tag.delete()
+    return redirect('main')
+
+def notesByTag(request, id):
+    user = User.objects.get(pk = request.user.pk)
+    tags = user.account.tags
+    tag = Tag.objects.get(id = id)
+    notes = Note.objects.filter(
+    account = user.account
+    ).filter(
+    tag = tag
+    )
+
+    photo = user.account.photo
+    context ={
+        'tags' : tags,
+        'notes' : notes,
+        'photo' : photo,
+        'title' : f'{tag.title}'
+    }
+    return render(request, 'DiarySiteApp/main.html', context)

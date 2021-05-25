@@ -1,0 +1,27 @@
+{% extends 'DiarySiteApp/base.html' %}
+
+{% load account socialaccount %}
+
+{% block title %}Войдите или зарегистрируйтесь{% endblock %}
+
+{% block content %}
+
+<div class="form_container">
+    <div class="form">
+
+        <h1>Регистрация</h1>
+        <p>Уже есть аккаунт?</p>
+        <p><a href="http://127.0.0.1:8000/accounts/login">Войдите</a></p>
+
+        <form class="signup" id="signup_form" method="post">
+            {% csrf_token %}
+            <div class="signup_form_fields">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="control_button">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

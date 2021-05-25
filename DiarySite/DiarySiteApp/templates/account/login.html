@@ -1,0 +1,45 @@
+{% extends 'DiarySiteApp/base.html' %}
+
+{% load account socialaccount %}
+
+{% block title %}Войдите или зарегистрируйтесь{% endblock %}
+
+{% block content %}
+
+<div class="form_container">
+  <div class="form">
+    <h1>Войти</h1>
+
+    <p>Впервые у нас?</p>
+
+    <a href="/accounts/signup/">Регистрация</a>
+
+    <div class="socialaccount_ballot">
+
+      <a title="VK" class="socialaccount_provider vk" href="/accounts/vk/login/?process=login"><div class="vk_button"> Войдите с VK </div></a>
+
+      <div class="login-or">или</div>
+
+    </div>
+
+    <form class="login" method="POST" action="/accounts/login/">
+      {% csrf_token %}
+      
+      <p>
+        <input type="text" name="login" placeholder="Имя пользователя" autocomplete="username" maxlength="150"
+          required="" id="id_login" class="input">
+      </p>
+      <p>
+        <input type="password" name="password" placeholder="Пароль" autocomplete="current-password" required=""
+          id="id_password" class="input">
+      </p>
+
+      <p class="forgot_password">
+        <a class="button secondaryAction" href="/accounts/password/reset/">Забыли пароль?</a>
+      </p>
+      <button class="primaryAction control_button" type="submit">Войти</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -19,6 +19,10 @@ $secondaryTextColor:darkgrey;
     border-radius: 50px;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 @mixin input {
@@ -80,6 +84,10 @@ body._lock{
     display: block;
 }
 
+.clearTrashCanButton:hover{
+    background-color: rgb(35, 35, 35);
+}
+
 .burger_menu_button{
     @include roundButton();
     visibility: hidden;
@@ -92,7 +100,7 @@ body._lock{
 
 .burger_menu_close_button{
     @include roundButton();
-    background-color: white;
+    background-color: transparent;
     visibility: hidden;
     grid-column: 3;
     justify-self: center;
@@ -444,6 +452,20 @@ body._lock{
     color: black;
     border-radius: 5px;
     padding-left: 5px;
+}
+
+.index_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.site_description{
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+    padding-top: 300px;
+    text-transform: uppercase;
 }
 
 @media (max-width: 1040px) {

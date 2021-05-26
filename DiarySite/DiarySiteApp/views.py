@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
+from django.http import response
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from .models import *
 import datetime
 
 def index(request):
-    return render(request, 'DiarySiteApp/index.html', {'title' : 'Diary Site'})
+    return render(request, 'DiarySiteApp/index.html', {'title' : 'DiaryLight'})
 
 def main(request):
     user = User.objects.get(pk = request.user.pk)
@@ -54,14 +56,27 @@ def restoreNote(request, id):
     note = Note.objects.get(id=id)
     note.on_delete = False
     note.save()
-    return redirect('trashCan')
+    response = redirect('trashCan')
+    count = 0
+    if 'inTrashCan' in request.COOKIES:
+        count = request.COOKIES['inTrashCan']
+        count = int(count) - 1
+    response.set_cookie('inTrashCan', count)
+    return response
 
 def toTrashCanNote(request, id):
     note = Note.objects.get(id=id)
     note.on_delete = True
     note.delete_date = datetime.datetime.now().date()
     note.save()
-    return redirect('main')
+    response = redirect('main')
+    count = 1
+    if 'inTrashCan' in request.COOKIES:
+        count = request.COOKIES['inTrashCan']
+        count = int(count) + 1
+    response.set_cookie('inTrashCan', count)
+    return response
+
 
 def trashCanView(request):
     user = User.objects.get(pk = request.user.pk)
@@ -94,7 +109,9 @@ def clearTrashCan(request):
     on_delete = True
     )
     notes.delete()
-    return redirect('trashCan')
+    response = redirect('trashCan')
+    response.set_cookie('inTrashCan', 0)
+    return response
 
 def addTag(request):
     if request.method == "POST":

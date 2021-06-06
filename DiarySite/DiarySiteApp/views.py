@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from django.http import response
-from django.http.response import HttpResponse
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
 import datetime
+from django.forms.models import model_to_dict
 
 def index(request):
     return render(request, 'DiarySiteApp/index.html', {'title' : 'DiaryLight'})
@@ -120,7 +120,7 @@ def addTag(request):
         tag.title = request.POST.get("tag_title_input")
         tag.account = user.account
         tag.save()
-        return redirect('main')
+        return JsonResponse({'tag': model_to_dict(tag)}, status = 200)
 
 def deleteTag(request, id):
     tag = Tag.objects.get(id = id)

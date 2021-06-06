@@ -13,5 +13,5 @@ urlpatterns = [
     re_path(r'^restoreNote/(?P<id>\d+)$', views.restoreNote, name = 'restoreNote'),
     path('addTag', views.addTag, name='addTag'),
     re_path(r'^deleteTag/(?P<id>\d+)$', views.deleteTag, name = 'deleteTag'),
-    re_path(r'^notesByTag/(?P<id>\d+)$', views.notesByTag, name = 'notesByTag')
+    re_path(r'^notesByTag/(?P<id>\d+)$', views.notesByTag, name = 'notesByTag'),
 ]

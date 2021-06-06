@@ -26,8 +26,20 @@
                         {% endif %}
                     </div>
                 </a>
-                <a href="toTrashCan/{{note.id}}" id="delete" class="cardManipulationButton">В корзину</a>
+                <a href="{% url 'toTrashCan' note.id %}" id="delete" class="cardManipulationButton" onclick="deleteNote()">В корзину</a>
             </div>
         {% endfor %}
     </div>
+    <script type="text/javascript">
+        function deleteNote(e){
+            $.ajax({
+                url : url,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+                    noteId = e.note.id
+                }
+            })
+        }
+    </script>
 {% endblock %}

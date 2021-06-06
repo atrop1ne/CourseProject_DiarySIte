@@ -44,20 +44,20 @@
                 </button>
             </div>
 
-            <div class="tags_container">
+            <div class="tags_container" id="tags_container">
                 <a href="{% url 'main' %}"><div class="tag_button">Все заметки</div></a>
                 <a href="{% url 'trashCan' %}"><div class="tag_button">Корзина</div></a>
+                <form method="POST" class="add_tag_form" id="tag_creation_form" data-url="{% url 'addTag' %}">
+                    {% csrf_token %}
+                    <input type="text" name="tag_title_input" autocomplete="off" class="input tag_title_input" placeholder="Добавить тег" required>
+                    <button type="submit" class="save_tag_button"></button>
+                </form>
                 {% for tag in tags%}
                     <div class="custom_tag_button">
                         <a href="{% url 'notesByTag' tag.id %}"><div>{{tag.title}}</div></a>
                         <a href="{% url 'deleteTag' tag.id %}" class="delete_tag_button"></a>
                     </div>
                 {% endfor %}
-                <form method="POST" class="add_tag_form" action="addTag">
-                    {% csrf_token %}
-                    <input type="text" name="tag_title_input" autocomplete="off" class="input tag_title_input" placeholder="Добавить тег" required>
-                    <button type="submit" class="save_tag_button"></button>
-                </form>
             </div>
         </div>
         
@@ -83,4 +83,26 @@
         }) 
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            let form = $('#tag_creation_form');
+            form.on('submit', function(e){
+                e.preventDefault();
+                let serializedData = form.serialize();
+                $.ajax({
+                    url: form.data('url'),
+                    data: serializedData,
+                    type: 'post',
+                    success: function(response){
+                        $('#tags_container').append('<div class="custom_tag_button"><a href="/notesByTag/' 
+                            + response.tag.id + '"><div>' 
+                            + response.tag.title + 
+                            '</div></a><a href="/deleteTag/'
+                            + response.tag.id +
+                            '" class="delete_tag_button"></a></div>')
+                    }
+                })
+            })
+        })
+    </script>
 {% endblock %}
